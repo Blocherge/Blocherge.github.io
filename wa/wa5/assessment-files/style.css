@@ -194,18 +194,17 @@ audio {
 
 .comment-form .flex-pair {
   display: flex;
+  flex-direction: column;
   padding: 0 3rem 1rem;
 }
 
 .comment-form label {
-  align-self: center;
-  flex: 2;
-  text-align: right;
+  text-align: left;
+  margin-bottom: 0.5rem;
 }
 
 .comment-form input {
-  margin-left: 1rem;
-  flex: 6;
+  margin-left: 0;
 }
 
 .show-hide {

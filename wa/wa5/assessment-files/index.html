@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <!--The base color difference given between the green background and the #2c2c2c text was 2.94, by lighteneing the background and darkening the text it is now around 7 and passes all legibility requirements-->
+  <!--The screen reader experience for this website was originally not good, using font sizes for titles made it difficult to navigate the page and understand when something was a title versus part of the paragraph. The table was also read poorly as a chunk of text insted of a table, and the comment button and audio element are useless-->
   <head>
     <meta charset="utf-8">
 
@@ -26,7 +27,8 @@
       <a href="#">Blog</a>
 
       <form class="search">
-        <input type="search" name="q" placeholder="Search query">
+        <label id="search" for="search" hidden>Search</label>
+        <input type="search" name="search" placeholder="Search query">
         <input type="submit" value="Go!">
       </form>
     </nav>
@@ -47,36 +49,40 @@
         <br><br>
         Bears can also be classified in terms of their habitat — both large and medium bears are just as at home in urban areas as they are in the countryside. Different habitats encourange different behaviour however, as you'll find out below. The below table also gives you some useful facts about bears.
         <br><br>
-        <table>
-          <thead>
-            <tr>
-              <td>Bear Type</td>
-              <td>Coat</td>
-              <td>Adult size</td>
-              <td>Habitat</td>
-              <td>Lifespan</td>
-              <td>Diet</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Wild</td>
-              <td>Brown or black</td>
-              <td>1.4 to 2.8 meters</td>
-              <td>Woods and forests</td>
-              <td>25 to 28 years</td>
-              <td>Fish, meat, plants</td>
-            </tr>
-            <tr>
-              <td>Urban</td>
-              <td>North Face</td>
-              <td>18 to 22</td>
-              <td>Condos and coffee shops</td>
-              <td>20 to 32 years</td>
-              <td>Starbucks, sushi</td>
-            </tr>
-          </tbody>
-        </table>
+<table>
+  <caption>Comparison of bear types and their characteristics</caption>
+
+  <thead>
+    <tr>
+      <th scope="col">Bear type</th>
+      <th scope="col">Coat</th>
+      <th scope="col">Adult size</th>
+      <th scope="col">Habitat</th>
+      <th scope="col">Lifespan</th>
+      <th scope="col">Diet</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th scope="row">Wild</th>
+      <td>Brown or black</td>
+      <td>1.4 to 2.8 meters</td>
+      <td>Woods and forests</td>
+      <td>25 to 28 years</td>
+      <td>Fish, meat, plants</td>
+    </tr>
+    <tr>
+      <th scope="row">Urban</th>
+      <td>North Face</td>
+      <td>18 to 22</td>
+      <td>Condos and coffee shops</td>
+      <td>20 to 32 years</td>
+      <td>Starbucks, sushi</td>
+    </tr>
+  </tbody>
+</table>
+
 
         <h3>Habitats and Eating habits</h3>
         <br><br>
@@ -90,17 +96,27 @@
         <br><br>
         Urban bears will sleep anywhere they can, from bus shelters and parks, to the toilets in McDonalds, to their own apartment.
         <br><br>
-        <font size="5">Mating rituals</font>
+        <h3>Mating rituals</h3>
         <br><br>
         Bears are romantic creatures by nature, and will naturally look for a mate that they can spend the rest of their lives with. They will woo a potential suitor by making their dwelling look attractive — for example with cave paintings or a bed of reeds in the case of a wild bear, and mood lighting and a Michael Bublé CD in the case of an urban bear.
         <br><br>
         The following audio clip contains a fact file providing more details about bear mating rituals, along with samples and quotes from experts.
         <br><br>
         <audio controls>
-          <source src="media/bear.mp3" type="audio/mp3">
+          <source src="media/bear.mp3" type="audio/mpeg">
           <source src="media/bear.ogg" type="audio/ogg">
-          <p>It looks like your browser doesn't support HTML5 audio players.</p>
+
+          <p>
+            Your browser does not support HTML5 audio.
+            You can <a href="media/bear.mp3">download the audio file</a> instead.
+          </p>
         </audio>
+
+        <p>
+          <strong>Transcript:</strong>  
+          This isn't really an audio file about bears. But it is an audio file you can transcribe.
+        </p>
+
 
         <aside>
 
@@ -151,7 +167,7 @@
       </article>
 
       <div class="secondary">
-        <font size="6">Related</font>
+        <h2>Related</h2>
 
         <ul>
           <li><a href="#">The trouble with Bees</a></li>
