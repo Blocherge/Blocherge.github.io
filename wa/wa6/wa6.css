@@ -1,0 +1,113 @@
+:root {
+    /* color variables gold-navy 7.8:1 contrast white-navy 12:1 contrast*/
+    --navy: #1A1F3A;
+    --gold: #D4AF37;
+    --gold-light: #E6C65C;
+    --white: #FFFFFF;
+
+    /* Spacing Scale (8px system) */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+}
+
+html {
+    /* base font size and background color*/
+    font-size: 16px;
+    background-color: var(--navy);
+}
+
+body {
+    min-width: 800px;
+    width: 80%;
+    margin: var(--space-xl);
+    font-family: 'Archivo', sans-serif;
+    color: var(--white);
+}
+
+
+h1, h2, h3 {
+    font-family: 'Fira Sans', sans-serif;
+    color: var(--gold);
+    text-shadow: 2px 2px 10px black;
+    margin-bottom: var(--space-sm);
+}
+
+/* fonts sized at 1.25 multiple starting at 16 px*/
+h1 {
+    font-size: 31px;
+}
+
+h2 {
+    font-size: 25px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+p {
+    margin-bottom: var(--space-md);
+}
+
+
+/* setup for links to highlight*/
+a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+a:hover {
+    color: var(--gold-light);
+    text-decoration: underline;
+}
+
+a:focus {
+    outline: 2px solid var(--white);
+    outline-offset: 3px;
+}
+
+/* button class to change background lighter and raise when hovered */
+button {
+    font-family: 'Fira Sans', sans-serif;
+    background-color: var(--gold);
+    color: var(--navy);
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--gold-light);
+    transform: translateY(-2px);
+}
+
+/* adds a white outline when the button is the focused part of the page*/
+button:focus {
+    outline: 3px solid var(--white);
+    outline-offset: 3px;
+}
+
+/* input styling though likely will not be used on personal page */
+input,
+textarea {
+    font-family: 'Archivo', sans-serif;
+    padding: var(--space-sm);
+    border-radius: 4px;
+    border: 2px solid var(--gold);
+    background-color: #232854;
+    color: var(--white);
+    margin-bottom: var(--space-md);
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.5);
+}
