@@ -30,7 +30,7 @@ h1 {
 
 .tagline {
     font-size: 1.2rem;
-    color: #fbbf24;
+    color: #00ff00;
 }
 
 nav {
@@ -48,11 +48,11 @@ nav a {
 }
 
 nav a:hover {
-    color: #fbbf24;
-    background: rgba(251, 191, 36, 0.2);
-    border-color: #fbbf24;
+    color: #00ff00;
+    background: rgba(0, 255, 0, 0.2);
+    border-color: #00ff00;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
 }
 
 .container {
@@ -62,7 +62,7 @@ nav a:hover {
     background: #1f2937;
     color: #f9fafb;
     border-radius: 10px;
-    box-shadow: 0 15px 40px rgba(251, 191, 36, 0.2), 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 40px rgba(0, 255, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 section {
@@ -71,10 +71,10 @@ section {
 
 h2 {
     font-family: 'Orbitron', sans-serif;
-    color: #fbbf24;
+    color: #00ff00;
     font-weight: 700;
     margin-bottom: 1rem;
-    border-bottom: 2px solid #fbbf24;
+    border-bottom: 2px solid #00ff00;
     padding-bottom: 0.5rem;
 }
 
@@ -82,7 +82,7 @@ h2 {
     background: #374151;
     padding: 1rem;
     margin: 1rem 0 1rem 2rem;
-    border-left: 4px solid #fbbf24;
+    border-left: 4px solid #00ff00;
     border-radius: 5px;
 }
 
@@ -97,7 +97,7 @@ h2 {
 
 .date-range {
     font-size: 0.9rem;
-    color: #fbbf24;
+    color: #00ff00;
     font-style: italic;
     margin: 0.25rem 0 0.75rem 0;
 }
@@ -136,53 +136,49 @@ footer {
 
 /* slideshow styles */
 .slideshow {
-    display: flex;
-    width: 400%;
+    position: relative;
     height: 600px;
-    animation: slide 16s infinite linear;
     overflow: hidden;
+    margin-bottom: 2rem;
 }
 
 .slideshow img {
-    width: 25%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-slideshow:hover {
+.slideshow img:nth-child(1) {
+    animation: slideIn 12s ease-in-out infinite;
+}
+
+.slideshow img:nth-child(2) {
+    animation: slideIn 12s ease-in-out infinite 4s;
+}
+
+.slideshow:hover {
     animation-play-state: paused;
-}
-
-@keyframes slide {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-75%);
-    }
-}
-
-@keyframes slideOut {
-    0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
 }
 
 @keyframes slideIn {
     0% {
-        transform: translateX(100%);
+        transform: translateX(-100%);
+        opacity: 0;
     }
-    50% {
+    40% {
         transform: translateX(0);
+        opacity: 1;
+    }
+    80% {
+        transform: translateX(0);
+        opacity: 1;
     }
     100% {
-        transform: translateX(0);
+        transform: translateX(100%);
+        opacity: 0;
     }
 }
 
