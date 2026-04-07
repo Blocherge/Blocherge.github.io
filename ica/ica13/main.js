@@ -62,6 +62,27 @@ class Ball {
 
         if (distance < this.size + ball.size) {
           ball.color = this.color = randomRGB();
+          // Normalize collision vector
+          const nx = dx / distance;
+          const ny = dy / distance;
+
+          // Relative velocity
+          const dvx = this.velX - ball.velX;
+          const dvy = this.velY - ball.velY;
+
+          // Dot product of velocity and collision normal
+          const impactSpeed = dvx * nx + dvy * ny;
+
+          // Only resolve if moving toward each other
+          if (impactSpeed > 0) continue;
+
+          // Apply impulse (simple equal-mass collision)
+          const impulse = 2 * impactSpeed / 2;
+
+          this.velX -= impulse * nx;
+          this.velY -= impulse * ny;
+          ball.velX += impulse * nx;
+          ball.velY += impulse * ny;
         }
       }
     }
