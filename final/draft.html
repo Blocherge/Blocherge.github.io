@@ -133,7 +133,26 @@ function movePlayer(dir) {
 function attack(type) {
   let range = type === "sword" ? 30 : 100;
   let damage = type === "sword" ? 10 : 6;
+  
+  if (dist <= range) {
+  g.hp -= damage;
+  volume += damage;
 
+  // FLASH EFFECT
+  ctx.fillStyle = "red";
+  ctx.beginPath();
+  ctx.arc(g.x, g.y, 12, 0, Math.PI * 2);
+  ctx.fill();
+
+  if (g.hp <= 0) {
+    goblins.splice(i, 1);
+    killCount++;
+
+    if (killCount % 2 === 0) {
+      spawnGoblins(1 + Math.floor(killCount / 4));
+    }
+  }
+}
   for (let i = goblins.length - 1; i >= 0; i--) {
     const g = goblins[i];
     const dist = Math.hypot(player.x - g.x, player.y - g.y);
