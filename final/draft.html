@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DnD Combat Simulator</title>
+  <style>
+    body { font-family: Arial; text-align: center; background: #111; color: #fff; }
+    canvas { background: #222; margin-top: 10px; }
+    button { margin: 5px; padding: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>DnD Combat Simulator</h2>
+<p id="stats"></p>
+<div id="difficultyButtons">
+  <p>Select Difficulty:</p>
+  <button onclick="selectDifficulty('easy')">Easy</button>
+  <button onclick="selectDifficulty('medium')">Medium</button>
+  <button onclick="selectDifficulty('hard')">Hard</button>
+</div>
+<canvas id="gameCanvas" width="500" height="500"></canvas>
+
+<div>
+  <button onclick="movePlayer('up')">Up</button>
+  <button onclick="movePlayer('down')">Down</button>
+  <button onclick="movePlayer('left')">Left</button>
+  <button onclick="movePlayer('right')">Right</button>
+</div>
+
+<div>
+  <button onclick="attack('sword')">Sword</button>
+  <button onclick="attack('crossbow')">Crossbow</button>
+  <button onclick="usePotion()">Healing Potion</button>
+</div>
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+let difficulty = null;
+let baseGoblinCount = 0;
+let killCount = 0;
+
+let player = {
+  x: 250,
+  y: 250,
+  hp: 100,
+  maxHp: 100,
+  potions: 3
+};
+
+let goblins = [];
+let volume = 0;
+
+// =======================
+// DIFFICULTY SELECTION
+// =======================
+function selectDifficulty(level) {
+  difficulty = level;
+
+  if (level === "easy") baseGoblinCount = 2;
+  if (level === "medium") baseGoblinCount = 4;
+  if (level === "hard") baseGoblinCount = 6;
+
+  spawnGoblins(baseGoblinCount);
+  document.getElementById("difficultyButtons").style.display = "none";
+}
+
+// =======================
+// SPAWN GOBLINS
+// =======================
+function spawnGoblins(count) {
+  for (let i = 0; i < count; i++) {
+    const type = Math.random() < 0.5 ? "sword" : "archer";
+
+    goblins.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      hp: type === "sword" ? 25 : 15,
+      type: type
+    });
+  }
+}
+
+// =======================
+// DRAW
+// =======================
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Player
+  ctx.fillStyle = "blue";
+  ctx.beginPath();
+  ctx.arc(player.x, player.y, 10, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Goblins
+  goblins.forEach(g => {
+    ctx.fillStyle = g.type === "archer" ? "orange" : "green";
+    ctx.beginPath();
+    ctx.arc(g.x, g.y, 8, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  updateStats();
+}
+
+// =======================
+// UI
+// =======================
+function updateStats() {
+  document.getElementById("stats").innerText =
+    `HP: ${player.hp} | Potions: ${player.potions} | Volume: ${volume} | Goblins: ${goblins.length} | Kills: ${killCount}`;
+}
+
+// =======================
+// MOVEMENT
+// =======================
+function movePlayer(dir) {
+  const step = 15;
+  if (dir === "up") player.y -= step;
+  if (dir === "down") player.y += step;
+  if (dir === "left") player.x -= step;
+  if (dir === "right") player.x += step;
+
+  goblinTurn();
+  checkDeath();
+  draw();
+}
+
+// =======================
+// ATTACK
+// =======================
+function attack(type) {
+  let range = type === "sword" ? 30 : 100;
+  let damage = type === "sword" ? 10 : 6;
+
+  for (let i = goblins.length - 1; i >= 0; i--) {
+    const g = goblins[i];
+    const dist = Math.hypot(player.x - g.x, player.y - g.y);
+
+    if (dist <= range) {
+      g.hp -= damage;
+      volume += damage;
+
+      if (g.hp <= 0) {
+        goblins.splice(i, 1);
+        killCount++;
+
+        // Spawn scaling: every 2 kills, add more goblins
+        if (killCount % 2 === 0) {
+          spawnGoblins(1 + Math.floor(killCount / 4));
+        }
+      }
+    }
+  }
+
+  goblinTurn();
+  checkDeath();
+  draw();
+}
+
+// =======================
+// POTION
+// =======================
+function usePotion() {
+  if (player.potions > 0) {
+    player.hp = Math.min(player.maxHp, player.hp + 30);
+    player.potions--;
+  }
+
+  goblinTurn();
+  draw();
+}
+
+// =======================
+// GOBLIN AI
+// =======================
+function goblinTurn() {
+  goblins.forEach(g => {
+    const dist = Math.hypot(player.x - g.x, player.y - g.y);
+
+    if (g.type === "sword") {
+      if (dist < 40) {
+        player.hp -= 5;
+      } else {
+        g.x += (player.x - g.x) * 0.1;
+        g.y += (player.y - g.y) * 0.1;
+      }
+    }
+
+    if (g.type === "archer") {
+      if (dist < 120 && dist > 50) {
+        player.hp -= 3; // ranged attack
+      } else {
+        // keep distance
+        g.x -= (player.x - g.x) * 0.05;
+        g.y -= (player.y - g.y) * 0.05;
+      }
+    }
+  });
+}
+
+// =======================
+// DEATH
+// =======================
+function checkDeath() {
+  if (player.hp <= 0) {
+    alert("You died! Restarting...");
+    volume = 0;
+    killCount = 0;
+    goblins = [];
+    player.hp = player.maxHp;
+    spawnGoblins(baseGoblinCount);
+  }
+}
+
+// =======================
+// GAME LOOP
+// =======================
+function gameLoop() {
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</script>
+</body>
+</html>
