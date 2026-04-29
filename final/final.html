@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DnD Combat Simulator</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: #f4f4f8;
+      background: linear-gradient(180deg, #08111f 0%, #10233d 55%, #1a304f 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .page-wrapper {
+      width: min(100%, 820px);
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(10, 18, 34, 0.85);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.85rem;
+      letter-spacing: 0.04em;
+    }
+
+    p {
+      margin: 0 0 18px;
+      font-size: 0.98rem;
+    }
+
+    .control-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    canvas {
+      background: radial-gradient(circle at 30% 20%, rgba(50, 70, 110, 0.9), #121e33 75%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+    }
+
+    button {
+      margin: 0;
+      padding: 9px 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #5a7cff, #2ec1ff);
+      color: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      min-width: 120px;
+      box-shadow: 0 10px 20px rgba(18, 44, 86, 0.25);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(18, 44, 86, 0.35);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 16px rgba(18, 44, 86, 0.25);
+      background: linear-gradient(135deg, #3b6eff, #24c7ff);
+    }
+
+    #difficultyButtons p {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #c3d4ff;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <h2>DnD Combat Simulator</h2>
+  <p id="stats"></p>
+
+  <div id="difficultyButtons" class="control-row">
+    <div style="display:flex; flex-direction:column; gap:10px; align-items:center; width:100%;">
+      <p>Select Difficulty:</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; width:100%;">
+        <button onclick="selectDifficulty('easy')">Easy</button>
+        <button onclick="selectDifficulty('medium')">Medium</button>
+        <button onclick="selectDifficulty('hard')">Hard</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="gameCanvas" width="500" height="500"></canvas>
+
+  <div class="control-row">
+    <button onclick="movePlayer('up')">Up</button>
+    <button onclick="movePlayer('down')">Down</button>
+    <button onclick="movePlayer('left')">Left</button>
+    <button onclick="movePlayer('right')">Right</button>
+  </div>
+
+<div class="control-row">
+  <button onclick="attack('sword')">Sword</button>
+  <button onclick="attack('crossbow')">Crossbow</button>
+  <button onclick="usePotion()">Healing Potion</button>
+</div>
+
+<div class="control-row">
+  <button onclick="setVolume()">Set Volume (End Game)</button>
+</div>
+
+</div>
+<!-- Link external JS -->
+<script src="game.js"></script>
+
+</body>
+</html>
